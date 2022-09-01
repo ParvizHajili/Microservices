@@ -32,6 +32,5 @@ namespace Services.Catalog.Models
 
         [BsonIgnore]
         public Category Category { get; set; }
-
     }
 }
