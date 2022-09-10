@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Catalog.Services
 {
-    interface ICategoryService
+    public interface ICategoryService
     {
         Task<Response<List<CategoryDto>>> GetAllAsync();
         Task<Response<CategoryDto>> CreateAsync(Category category);
