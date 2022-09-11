@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,10 +30,22 @@ namespace Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            //{
+            //    options.Authority = Configuration["IdentityServerURL"];
+            //    options.Audience = "resource_catalog";
+            //    options.RequireHttpsMetadata = false;
+            //});
+
             services.AddScoped<ICategoryService, CategoryService>();
-
-
+            services.AddScoped<ICourseService, CourseService>();
             services.AddAutoMapper(typeof(Startup));
+
+            //services.AddControllers(opt =>
+            //{
+            //    opt.Filters.Add(new AuthorizeFilter());
+            //});
+
 
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
 
@@ -59,7 +73,9 @@ namespace Services.Catalog
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

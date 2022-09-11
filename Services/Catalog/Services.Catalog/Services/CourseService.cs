@@ -48,11 +48,10 @@ namespace Services.Catalog.Services
 
         public async Task<Response<CourseDto>> GetByIdAsync(string id)
         {
-            var course = await _courseCollection.Find(c => c.Id == id).FirstOrDefaultAsync();
-            if (course == null)
+            var course = await _courseCollection.Find<Course>(c => c.Id == id).FirstOrDefaultAsync();
+            if (course == null) 
             {
                 return Response<CourseDto>.Fail("Course Not Found", 404);
-
             }
             course.Category = await _categoryCollection.Find<Category>(c => c.Id == course.CategoryId).FirstAsync();
 
