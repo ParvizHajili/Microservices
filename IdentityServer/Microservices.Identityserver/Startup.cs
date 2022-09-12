@@ -17,6 +17,7 @@ namespace Microservices.Identityserver
 {
     public class Startup
     {
+        //34
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 

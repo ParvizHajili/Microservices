@@ -29,10 +29,7 @@ namespace Services.Catalog.Controllers
         public async Task<IActionResult> GetById(string id)
         {
             var response = await _courseService.GetByIdAsync(id);
-            //if(response == null)
-            //{
-            //    return BadRequest("Course not found");
-            //}
+
             return CreateActionResultInstance(response);
         }
 
