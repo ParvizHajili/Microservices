@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
 using IdentityServer4;
 using Microservices.Identityserver.Data;
 using Microservices.Identityserver.Models;
+using Microservices.Identityserver.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +17,6 @@ namespace Microservices.Identityserver
 {
     public class Startup
     {
-        //34
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
@@ -55,6 +54,8 @@ namespace Microservices.Identityserver
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
+
+            builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
